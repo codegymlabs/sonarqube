@@ -1,2 +1,27 @@
 # sonarqube
+
 dockerized sonarqube server
+
+## Usage
+
+Clone repository này về, tạo file `.env` với thông số $PORT là port sẽ dành cho sonarqube server, trong ví dụ dưới đây là 80:
+
+```bash
+$[~]: git clone https://github.com/codegymlabs/sonarqube
+$[~]: cd sonarqube
+$[~/sonarqube]: printf 'PORT=80' > .env
+```
+## Chạy service:
+
+```bash
+$[~/sonarqube]: docker-compose up -d
+```
+
+## Xem logs:
+
+```
+$[~/sonarqube]: docker-compose logs
+```
+## Backup:
+
+Backup các thư mục trong `/srv/docker/sonarqube/`
