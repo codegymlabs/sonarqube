@@ -9,20 +9,20 @@ Trên host phải có cài đặt sẵn docker executable và docker-compose exe
 Clone repository này về, tạo file `.env` với thông số `PORT` là port sẽ dành cho sonarqube server, trong ví dụ dưới đây là 80:
 
 ```bash
-$[~]: git clone https://github.com/codegymlabs/sonarqube
-$[~]: cd sonarqube
-$[~/sonarqube]: echo 'PORT=80' > .env
+git clone https://github.com/codegymlabs/sonarqube
+cd sonarqube
+echo 'PORT=80' > .env
 ```
 ## Chạy service:
 
 ```bash
-$[~/sonarqube]: docker-compose up -d
+docker-compose up -d
 ```
 
 ## Xem logs:
 
 ```
-$[~/sonarqube]: docker-compose logs
+docker-compose logs
 ```
 ## Backup:
 
