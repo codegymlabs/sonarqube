@@ -8,18 +8,33 @@ services:
       - ${PORT}:9000
     networks:
       - sonarnet
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: ${DB_USERNAME}
+      SONAR_JDBC_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_logs:/opt/sonarqube/logs
-      - sonarqube_temp:/opt/sonarqube/temp
+      # data files, such as the embedded H2 database and Elasticsearch indexes
+      - ${OPT_PATH}/data:/opt/sonarqube/data
+      # plugins, such as language analyzers
+      - ${OPT_PATH}/extensions:/opt/sonarqube/extensions
+      # data files, such as the embedded H2 database and Elasticsearch indexes
+      - ${OPT_PATH}/logs:/opt/sonarqube/logs
+      - ${OPT_PATH}/temp:/opt/sonarqube/temp
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    networks:
+      - sonarnet
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ${DATA_PATH}/postgresql:/var/lib/postgresql
+      - ${DATA_PATH}/postgresql/data:/var/lib/postgresql/data
 
 networks:
   sonarnet:
     driver: bridge
-
-volumes:
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
-  sonarqube_temp:
